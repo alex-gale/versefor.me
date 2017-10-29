@@ -1,0 +1,98 @@
+@mixin border-box {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+@mixin background {
+  background-image: url('background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+
+* {
+  margin: 0;
+  padding: 0;
+
+  @include border-box;
+}
+
+body {
+  background-color: whitesmoke;
+}
+
+.header-container {
+  @include background
+}
+
+.header {
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 10px;
+  width: 100%;
+  font-family: 'Lobster', cursive;
+  text-align: center;
+
+  &:before {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    content: " ";
+    width: 100%;
+    height: 100%;
+    @include background;
+    filter: blur(5px);
+  }
+
+  h1 {
+    font-size: 50px;
+
+    @media only screen and (max-width: 400px) {
+      font-size: 11vw;
+    }
+  }
+}
+
+.content {
+  width: 100%;
+  padding: 20px;
+  font-family: 'Slabo 27px', serif;
+}
+
+.loading {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.verse-box {
+  margin: 20px;
+  max-width: 500px;
+  min-height: 130px;
+  background-color: #505050;
+  margin-left: auto;
+  margin-right: auto;
+
+  .verse-info {
+    width: 100%;
+    padding: 10px;
+    background-color: #101010;
+    color: white;
+    text-align: left;
+  }
+  .verse-text {
+    padding: 10px;
+    color: whitesmoke;
+  }
+}
+
+.tag {
+  display: inline-block;
+  background: #585858;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 2em;
+  margin-right: 10px;
+}
