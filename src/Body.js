@@ -12,8 +12,7 @@ export default class Body extends React.Component {
 
     return (
       <div className="content">
-        <h2 className="loading">{loading}</h2>
-        {this.props.verses.map((verse) => <Verse key={verse._id} verse={verse} />)}
+        {!this.props.loading ? this.props.verses.length > 0 ? this.props.verses.map((verse) => <Verse key={verse._id} verse={verse} />) : <h2>Verse of the Day</h2> : <h2>{loading}</h2>}
       </div>
     );
   }

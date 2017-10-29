@@ -9,8 +9,7 @@
   background-size: cover;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Lobster');
-@import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+@import url('https://fonts.googleapis.com/css?family=Bitter|Lobster');
 
 * {
   margin: 0;
@@ -35,6 +34,7 @@ body {
   width: 100%;
   font-family: 'Lobster', cursive;
   text-align: center;
+  border-bottom: solid 5px #969696;
 
   &:before {
     position: absolute;
@@ -56,24 +56,62 @@ body {
   }
 }
 
+.search-input {
+  padding: 5px;
+  padding-left: 10px;
+  transition: box-shadow 0.3s, border 0.3s;
+  width: 50vw;
+  max-width: 600px;
+  border: solid 5px #c9c9c9;
+  font-family: 'Bitter', serif;
+  font-size: 20px;
+  margin-top: 20px;
+
+  &:focus {
+    border: solid 5px #969696;
+    outline: none;
+  }
+}
+
+.search-button {
+  border: solid 5px #c9c9c9;
+  padding: 5px;
+  font-size: 20px;
+  background-color: #ccff96;
+  font-family: 'Bitter', serif;
+  transition: background-color 0.3s;
+  outline: none;
+  margin-left: 20px;
+
+  &:hover {
+    background-color: #9be053;
+  }
+
+  @media only screen and (max-width: 252px) {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+}
+
 .content {
   width: 100%;
   padding: 20px;
-  font-family: 'Slabo 27px', serif;
-}
+  font-family: 'Bitter', serif;
 
-.loading {
-  text-align: center;
-  margin-bottom: 10px;
+  h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
 }
 
 .verse-box {
   margin: 20px;
   max-width: 500px;
-  min-height: 130px;
+  min-height: 135px;
   background-color: #505050;
   margin-left: auto;
   margin-right: auto;
+  border: solid 3px #969696;
 
   .verse-info {
     width: 100%;
@@ -95,4 +133,5 @@ body {
   padding-right: 5px;
   border-radius: 2em;
   margin-right: 10px;
+  margin-top: 5px;
 }
