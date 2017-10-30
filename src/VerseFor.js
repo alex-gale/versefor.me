@@ -33,6 +33,7 @@ export default class VerseFor extends React.Component {
         <Body
           verses={this.state.currentVerses}
           loading={this.state.loading}
+          toggleLoading={this.toggleLoading}
         />
       </div>
     );
