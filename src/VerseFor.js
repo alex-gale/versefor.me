@@ -7,11 +7,13 @@ export default class VerseFor extends React.Component {
     super(props);
     this.state = {
       currentVerses: [],
-      loading: false
+      loading: false,
+      submittedInput: ""
     }
 
     this.updateVerses = this.updateVerses.bind(this);
     this.toggleLoading = this.toggleLoading.bind(this);
+    this.updateSubmittedInput = this.updateSubmittedInput.bind(this);
   }
 
   updateVerses(verses) {
@@ -27,17 +29,23 @@ export default class VerseFor extends React.Component {
     this.setState({loading: loading});
   }
 
+  updateSubmittedInput(input) {
+    this.setState({submittedInput: input})
+  }
+
   render() {
     return (
       <div className="container">
         <Header
           updateVerses={this.updateVerses}
           toggleLoading={this.toggleLoading}
+          updateSubmittedInput={this.updateSubmittedInput}
         />
         <Body
           verses={this.state.currentVerses}
           loading={this.state.loading}
           toggleLoading={this.toggleLoading}
+          submittedInput={this.state.submittedInput}
         />
       </div>
     );

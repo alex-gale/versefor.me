@@ -24,6 +24,7 @@ export default class Header extends React.Component {
         this.props.toggleLoading();
       })
 
+    this.props.updateSubmittedInput(this.state.inputValue);
     event.preventDefault();
   }
 
