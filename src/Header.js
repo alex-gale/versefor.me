@@ -4,10 +4,11 @@ import InputObject from './InputObject.js';
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {inputValue: ""};
+    this.state = {inputValue: "", currentVersion: "niv"};
 
     this.updateInput = this.updateInput.bind(this);
     this.submitInput = this.submitInput.bind(this);
+    this.changeVersion = this.changeVersion.bind(this);
   }
 
   updateInput(event) {
@@ -17,7 +18,7 @@ export default class Header extends React.Component {
   submitInput(event) {
     this.props.toggleLoading();
     this.props.updateVerses([]);
-    fetch(`https://api.wagical.co.uk/bible/niv?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
+    fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
       .then(result => {return result.json()})
       .then(data => {
         data.success ? this.props.updateVerses(data.data) : this.props.updateVerses([]);
@@ -26,6 +27,10 @@ export default class Header extends React.Component {
 
     this.props.updateSubmittedInput(this.state.inputValue);
     event.preventDefault();
+  }
+
+  changeVersion(event) {
+    this.setState({currentVersion: event.target.value})
   }
 
   render() {
@@ -37,6 +42,8 @@ export default class Header extends React.Component {
             value={this.state.inputValue}
             handleChange={this.updateInput}
             handleSubmit={this.submitInput}
+            currentVersion={this.state.currentVersion}
+            changeVersion={this.changeVersion}
           />
         </div>
       </div>
