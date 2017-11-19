@@ -1,6 +1,6 @@
 {
   "name": "versefor",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "private": true,
   "dependencies": {
     "react": "^16.0.0",
