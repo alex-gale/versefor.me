@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header.js';
 import Body from './Body.js';
+import '../index.min.css';
 
 export default class VerseFor extends React.Component {
   constructor(props) {

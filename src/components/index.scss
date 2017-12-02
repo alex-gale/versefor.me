@@ -61,21 +61,11 @@ body {
 }
 
 .search-input {
-  padding: 5px;
   padding-left: 10px;
   padding-right: 81px;
-  transition: border 0.3s;
   width: 50vw;
   max-width: 600px;
-  border: solid 5px #c9c9c9;
-  font-family: 'Bitter', serif;
-  font-size: 20px;
   margin-top: 20px;
-
-  &:focus {
-    border: solid 5px #969696;
-    outline: none;
-  }
 
   @media only screen and (max-width: 492px) {
     width: 100%;
@@ -88,20 +78,21 @@ body {
   }
 }
 
-.search-button {
-  border: solid 5px #c9c9c9;
+.textInput {
   padding: 5px;
-  font-size: 20px;
-  background-color: #ccff96;
+  transition: border 0.3s;
+  border: solid 5px #c9c9c9;
   font-family: 'Bitter', serif;
-  transition: border 0.3s, background-color 0.3s;
-  outline: none;
-  margin-left: 20px;
+  font-size: 20px;
 
-  &:hover {
-    background-color: #9be053;
-    cursor: pointer;
+  &:focus {
+    border: solid 5px #969696;
+    outline: none;
   }
+}
+
+.search-button {
+  margin-left: 20px;
 
   @media only screen and (max-width: 492px) {
     margin-left: -81.4px;
@@ -125,7 +116,21 @@ select {
   &:focus {
     outline: none;
     border: solid 5px #969696;
-    background-image: url('uparrow.png');
+  }
+}
+
+.button {
+  border: solid 5px #c9c9c9;
+  padding: 5px;
+  font-size: 20px;
+  background-color: #ccff96;
+  font-family: 'Bitter', serif;
+  transition: border 0.3s, background-color 0.3s;
+  outline: none;
+
+  &:hover {
+    background-color: #9be053;
+    cursor: pointer;
   }
 }
 
@@ -186,4 +191,26 @@ input, select {
   border-radius: 2em;
   margin-right: 10px;
   margin-top: 5px;
+}
+
+/* Login/Login required pages */
+.addtag-chapter, .addtag-verse, .addtag-tag, .addtag-select, .login-username, .login-password {
+  margin: 5px;
+}
+
+.hidden-container {
+  text-align: center;
+  padding: 5px;
+
+  h1, h2, p {
+    font-family: 'Bitter', serif;
+    margin: 5px;
+  }
+  h2 {
+    margin-top: 15px;
+  }
+}
+
+.logout-form {
+  margin-top: 30px;
 }
