@@ -79,9 +79,10 @@ export default class LoggedInView extends React.Component {
           <input className="textInput addtag-chapter" type="text" value={this.props.chapter} onChange={this.props.changeChapter} placeholder="Chapter" /><br />
           <input className="textInput addtag-verse" type="text" value={this.props.verse} onChange={this.props.changeVerse} placeholder="Verse" /><br />
           <input className="textInput addtag-tag" type="text" value={this.props.tag} onChange={this.props.changeTag} placeholder="Tag" /><br />
-          <p>{this.props.specialMessage}</p>
+          <p className="specialMessage">{this.props.specialMessage}</p>
           <input className="button addtag-submit" type="submit" />
         </form>
+        <p>Changes made here are pushed directly into the live database. If you mess somthing up, tell Gale as soon as possible :)</p>
 
 
         <form className="logout-form" onSubmit={this.props.handleLogout}>

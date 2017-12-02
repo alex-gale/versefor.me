@@ -57,12 +57,12 @@ export default class AddVerse extends React.Component {
       .then(result => {return result.json()})
       .then(data => {
         if (data.success) {
-          this.setState({loggedIn: true, token: data.data.token});
+          this.setState({loggedIn: true, token: data.data.token, specialMessage: ""});
           window.localStorage.setItem('token', data.data.token);
           window.localStorage.setItem('username', this.state.username);
         }
         else {
-          console.log(data.data)
+          this.setState({specialMessage: data.data});
         };
       })
     event.preventDefault();
@@ -146,6 +146,7 @@ export default class AddVerse extends React.Component {
             updatePassword={this.updatePassword}
             username={this.state.username}
             password={this.state.password}
+            specialMessage={this.state.specialMessage}
           />}
       </div>
     )
