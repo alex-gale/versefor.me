@@ -92,10 +92,10 @@ export default class AddVerse extends React.Component {
       .then(result => {return result.json()})
       .then(data => {
         if (data.success) {
-          this.setState({currentChapter: "", currentVerse: "", currentTag: "", specialMessage: "Tag submitted!"})
+          this.setState({currentChapter: "", currentVerse: "", currentTag: "", specialMessage: data.data})
         }
         else {
-          this.setState({specialMessage: "There was an error submitting your tag."})
+          this.setState({specialMessage: data.data})
         }
       })
 

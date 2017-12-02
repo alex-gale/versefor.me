@@ -91,15 +91,6 @@ body {
   }
 }
 
-.search-button {
-  margin-left: 20px;
-
-  @media only screen and (max-width: 492px) {
-    margin-left: -81.4px;
-    border-left: none;
-  }
-}
-
 select {
   padding: 5px;
   padding-right: 35px;
@@ -112,6 +103,7 @@ select {
   background-position: calc(100% - 10px);
   background-repeat: no-repeat;
   background-size: 20px 12.50px;
+  -moz-appearance:none;
 
   &:focus {
     outline: none;
@@ -131,6 +123,15 @@ select {
   &:hover {
     background-color: #9be053;
     cursor: pointer;
+  }
+}
+
+.search-button {
+  margin-left: 20px;
+
+  @media only screen and (max-width: 491px) {
+    margin-left: -81.4px;
+    border-left: none;
   }
 }
 
