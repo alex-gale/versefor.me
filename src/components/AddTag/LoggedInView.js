@@ -1,4 +1,5 @@
 import React from 'react';
+import AdminObject from './AdminObject'
 
 export default class LoggedInView extends React.Component {
   render() {
@@ -84,6 +85,7 @@ export default class LoggedInView extends React.Component {
         </form>
         <p>Changes made here are pushed directly into the live database. If you mess somthing up, tell Gale as soon as possible :)</p>
 
+        {this.props.admin && <AdminObject />}
 
         <form className="logout-form" onSubmit={this.props.handleLogout}>
           <input className="button logout-submit" type="submit" value="Logout" />

@@ -16,7 +16,8 @@ export default class AddVerse extends React.Component {
       currentChapter: "",
       currentVerse: "",
       currentTag: "",
-      specialMessage: ""
+      specialMessage: "",
+      admin: false
     };
 
     this.logout = this.logout.bind(this);
@@ -37,7 +38,10 @@ export default class AddVerse extends React.Component {
         localStorage.clear()
       }
       else {
-        this.setState({loggedIn: true, username: localStorage.getItem('username'), token: localStorage.getItem('token')});
+        var token = localStorage.getItem('token');
+        var admin = jwtDecode(token).admin;
+        var username = localStorage.getItem('username');
+        this.setState({loggedIn: true, username: username, token: token, admin: admin});
       }
     }
   }
@@ -57,7 +61,10 @@ export default class AddVerse extends React.Component {
       .then(result => {return result.json()})
       .then(data => {
         if (data.success) {
-          this.setState({loggedIn: true, token: data.data.token, specialMessage: ""});
+          var token = data.data.token;
+          var admin = jwtDecode(token).admin;
+          var username = data.data.username;
+          this.setState({loggedIn: true, token: token, specialMessage: "", admin: admin, username: username});
           window.localStorage.setItem('token', data.data.token);
           window.localStorage.setItem('username', this.state.username);
         }
@@ -102,6 +109,7 @@ export default class AddVerse extends React.Component {
     event.preventDefault();
   }
 
+  // Update state for form items
   updateUsername(event) {
     this.setState({username: event.target.value})
   }
@@ -139,6 +147,7 @@ export default class AddVerse extends React.Component {
             changeVerse={this.changeVerse}
             changeTag={this.changeTag}
             specialMessage={this.state.specialMessage}
+            admin={this.state.admin}
           /> :
           <LoginInput
             handleSubmit={this.login}
