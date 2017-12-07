@@ -10,7 +10,7 @@ export default class Body extends React.Component {
       loading = "";
     }
 
-    var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'stealing'];
+    var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'stealing', 'greed', 'swearing'];
     var exampleTag = tags[Math.floor(Math.random() * tags.length)]
     var content;
 

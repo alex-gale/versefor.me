@@ -87,9 +87,7 @@ export default class AddVerse extends React.Component {
     var verse = this.state.currentVerse;
     var tag = this.state.currentTag.toLowerCase();
 
-    console.log(bookid + chapter + verse + tag)
-
-    fetch(`https://api.wagical.co.uk/bible/addtag?bookid=${bookid}&chapter=${chapter}&verse=${verse}&tag=${tag}&token=${this.state.token}`, {
+    fetch(`https://api.wagical.co.uk/bible/addtag?bookid=${bookid}&chapter=${chapter}&verse=${verse}&tag=${tag}&token=${this.state.token}&username=${this.state.username}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',

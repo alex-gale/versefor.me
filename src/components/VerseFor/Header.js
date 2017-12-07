@@ -16,14 +16,17 @@ export default class Header extends React.Component {
   }
 
   submitInput(event) {
-    this.props.toggleLoading();
     this.props.updateVerses([]);
-    fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
-      .then(result => {return result.json()})
-      .then(data => {
-        data.success ? this.props.updateVerses(data.data) : this.props.updateVerses([]);
-        this.props.toggleLoading();
-      })
+
+    if (this.state.inputValue !== "") {
+      this.props.toggleLoading();
+      fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
+        .then(result => {return result.json()})
+        .then(data => {
+          data.success ? this.props.updateVerses(data.data) : this.props.updateVerses([]);
+          this.props.toggleLoading();
+        })
+    }
 
     this.props.updateSubmittedInput(this.state.inputValue);
     event.preventDefault();
