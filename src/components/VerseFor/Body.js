@@ -19,7 +19,11 @@ export default class Body extends React.Component {
 
       // If verses are currently stored
       if (this.props.verses.length > 0 ) {
-        content = this.props.verses.map((verse) => <Verse key={verse._id} verse={verse} />);
+        content =
+        <div>
+          {this.props.verses.map((verse) => <Verse key={verse._id} verse={verse} />)}
+          <span className="copyright">{this.props.copyright}</span>
+        </div>;
       }
       // If no verses are stored
       else {

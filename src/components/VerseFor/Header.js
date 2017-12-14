@@ -4,7 +4,7 @@ import InputObject from './InputObject.js';
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {inputValue: "", currentVersion: "niv"};
+    this.state = {inputValue: "", currentVersion: "nlt"};
 
     this.updateInput = this.updateInput.bind(this);
     this.submitInput = this.submitInput.bind(this);
@@ -33,7 +33,8 @@ export default class Header extends React.Component {
   }
 
   changeVersion(event) {
-    this.setState({currentVersion: event.target.value})
+    this.setState({currentVersion: event.target.value});
+    this.props.updateCopyright(event.target.value);
   }
 
   render() {

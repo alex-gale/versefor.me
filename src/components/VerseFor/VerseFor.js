@@ -9,12 +9,14 @@ export default class VerseFor extends React.Component {
     this.state = {
       currentVerses: [],
       loading: false,
-      submittedInput: ""
+      submittedInput: "",
+      copyright: getCopyright("nlt")
     }
 
     this.updateVerses = this.updateVerses.bind(this);
     this.toggleLoading = this.toggleLoading.bind(this);
     this.updateSubmittedInput = this.updateSubmittedInput.bind(this);
+    this.updateCopyright = this.updateCopyright.bind(this);
   }
 
   updateVerses(verses) {
@@ -34,6 +36,10 @@ export default class VerseFor extends React.Component {
     this.setState({submittedInput: input})
   }
 
+  updateCopyright(version) {
+    this.setState({copyright: getCopyright(version)});
+  }
+
   render() {
     return (
       <div className="container">
@@ -41,12 +47,14 @@ export default class VerseFor extends React.Component {
           updateVerses={this.updateVerses}
           toggleLoading={this.toggleLoading}
           updateSubmittedInput={this.updateSubmittedInput}
+          updateCopyright={this.updateCopyright}
         />
         <Body
           verses={this.state.currentVerses}
           loading={this.state.loading}
           toggleLoading={this.toggleLoading}
           submittedInput={this.state.submittedInput}
+          copyright={this.state.copyright}
         />
       </div>
     );
@@ -84,4 +92,16 @@ function getRandom(arr, n) {
         taken[x] = --len;
     }
     return result;
+}
+
+function getCopyright(version) {
+  switch(version) {
+    case "niv":
+      return "The Holy Bible, New International Version (NIV)\nCopyright 1973, 1978, 1984, 2011 by Biblica Inc.\nAll rights reserved."
+      break;
+    case "nlt":
+      return "The Holy Bible, New Living Translation (NLT)\nCopyright 1996, 2004, 2007 by Tyndale House Foundation.\n All rights reserved."
+    default:
+      return ""
+  }
 }
