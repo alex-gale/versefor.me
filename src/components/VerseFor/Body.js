@@ -1,16 +1,17 @@
 import React from 'react';
 import Verse from './Verse.js';
+import LoadingIcon from './LoadingIcon.js';
 
 export default class Body extends React.Component {
   render() {
     var loading;
     if (this.props.loading) {
-      loading = "Loading...";
+      loading = <LoadingIcon />;
     } else {
       loading = "";
     }
 
-    var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'stealing', 'greed', 'swearing'];
+    var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'stealing', 'greed', 'swearing', 'salad'];
     var exampleTag = tags[Math.floor(Math.random() * tags.length)]
     var content;
 

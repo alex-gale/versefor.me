@@ -98,7 +98,6 @@ function getCopyright(version) {
   switch(version) {
     case "niv":
       return "The Holy Bible, New International Version (NIV)\nCopyright 1973, 1978, 1984, 2011 by Biblica Inc.\nAll rights reserved."
-      break;
     case "nlt":
       return "The Holy Bible, New Living Translation (NLT)\nCopyright 1996, 2004, 2007 by Tyndale House Foundation.\n All rights reserved."
     default:
