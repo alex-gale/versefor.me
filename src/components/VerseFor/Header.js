@@ -20,12 +20,24 @@ export default class Header extends React.Component {
 
     if (this.state.inputValue !== "") {
       this.props.toggleLoading();
-      fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
+
+      //Fetch with timeout detection
+      timeout(1000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
         .then(result => {return result.json()})
         .then(data => {
-          data.success ? this.props.updateVerses(data.data) : this.props.updateVerses([]);
+          if (data.success) {
+            this.props.updateVerses(data.data);
+            this.props.updateError(null);
+          } else {
+            this.props.updateVerses([]);
+          }
+
           this.props.toggleLoading();
         })
+      ).catch(function(error) {
+        console.error(error);
+        this.props.updateError("Could not connect to database :(");
+      })
     }
 
     this.props.updateSubmittedInput(this.state.inputValue);
@@ -53,4 +65,13 @@ export default class Header extends React.Component {
       </div>
     );
   }
+}
+
+function timeout(ms, promise) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(function() {
+      reject(new Error("timeout"))
+    }, ms)
+    promise.then(resolve, reject)
+  })
 }

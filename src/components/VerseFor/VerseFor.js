@@ -10,13 +10,15 @@ export default class VerseFor extends React.Component {
       currentVerses: [],
       loading: false,
       submittedInput: "",
-      copyright: getCopyright("nlt")
+      copyright: getCopyright("nlt"),
+      error: null
     }
 
     this.updateVerses = this.updateVerses.bind(this);
     this.toggleLoading = this.toggleLoading.bind(this);
     this.updateSubmittedInput = this.updateSubmittedInput.bind(this);
     this.updateCopyright = this.updateCopyright.bind(this);
+    this.updateError = this.updateError.bind(this);
   }
 
   updateVerses(verses) {
@@ -40,6 +42,10 @@ export default class VerseFor extends React.Component {
     this.setState({copyright: getCopyright(version)});
   }
 
+  updateError(error) {
+    this.setState({error: error});
+  }
+
   render() {
     return (
       <div className="container">
@@ -48,6 +54,7 @@ export default class VerseFor extends React.Component {
           toggleLoading={this.toggleLoading}
           updateSubmittedInput={this.updateSubmittedInput}
           updateCopyright={this.updateCopyright}
+          updateError={this.updateError}
         />
         <Body
           verses={this.state.currentVerses}
@@ -55,6 +62,7 @@ export default class VerseFor extends React.Component {
           toggleLoading={this.toggleLoading}
           submittedInput={this.state.submittedInput}
           copyright={this.state.copyright}
+          error={this.state.error}
         />
       </div>
     );

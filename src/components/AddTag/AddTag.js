@@ -34,7 +34,7 @@ export default class AddVerse extends React.Component {
   componentDidMount() {
     var localStorage = window.localStorage;
     if (localStorage.getItem('username') && localStorage.getItem('token')) {
-      if (jwtDecode(localStorage.getItem('token')).exp< Date.now() / 1000) {
+      if (jwtDecode(localStorage.getItem('token')).exp < Date.now() / 1000) {
         localStorage.clear()
       }
       else {
