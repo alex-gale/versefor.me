@@ -4,7 +4,7 @@
   -moz-box-sizing: border-box;
 }
 @mixin background {
-  background-image: url('background.png');
+  background-image: url('./images/background.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -99,7 +99,7 @@ select {
   font-family: 'Bitter', serif;
   font-size: 20px;
   background-color: white;
-  background-image: url('downarrow.png');
+  background-image: url('./images/downarrow.png');
   background-position: calc(100% - 10px);
   background-repeat: no-repeat;
   background-size: 20px 12.50px;
