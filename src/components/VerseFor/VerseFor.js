@@ -10,7 +10,7 @@ export default class VerseFor extends React.Component {
       loading: false,
       submittedInput: "",
       copyright: getCopyright("nlt"),
-      error: null
+      error: ""
     }
 
     this.updateVerses = this.updateVerses.bind(this);

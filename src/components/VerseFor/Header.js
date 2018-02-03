@@ -4,7 +4,10 @@ import InputObject from './InputObject.js';
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {inputValue: "", currentVersion: "nlt"};
+    this.state = {
+      inputValue: "",
+      currentVersion: "nlt"
+    };
 
     this.updateInput = this.updateInput.bind(this);
     this.submitInput = this.submitInput.bind(this);
@@ -16,18 +19,19 @@ export default class Header extends React.Component {
   }
 
   submitInput(event) {
+    var that = this
     this.props.updateVerses([]);
 
     if (this.state.inputValue !== "") {
       this.props.toggleLoading();
 
       //Fetch with timeout detection
-      timeout(1000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
+      timeout(2000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
         .then(result => {return result.json()})
         .then(data => {
           if (data.success) {
             this.props.updateVerses(data.data);
-            this.props.updateError(null);
+            this.props.updateError("");
           } else {
             this.props.updateVerses([]);
           }
@@ -35,18 +39,19 @@ export default class Header extends React.Component {
           this.props.toggleLoading();
         })
       ).catch(function(error) {
-        console.error(error);
-        this.props.updateError("Could not connect to database :(");
+        that.props.updateError("Could not connect to database :(");
+        that.props.toggleLoading();
       })
     }
 
     this.props.updateSubmittedInput(this.state.inputValue);
-    event.preventDefault();
+    if (event) event.preventDefault();
   }
 
   changeVersion(event) {
     this.setState({currentVersion: event.target.value});
     this.props.updateCopyright(event.target.value);
+    this.submitInput();
   }
 
   render() {

@@ -4,13 +4,6 @@ import LoadingIcon from './LoadingIcon.js';
 
 export default class Body extends React.Component {
   render() {
-    var loading;
-    if (this.props.loading) {
-      loading = <LoadingIcon />;
-    } else {
-      loading = "";
-    }
-
     var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'stealing', 'greed', 'swearing', 'salad'];
     var exampleTag = tags[Math.floor(Math.random() * tags.length)]
     var content;
@@ -39,18 +32,28 @@ export default class Body extends React.Component {
         }
         // If no verses were returned by the API
         else {
-          content = (
-            <div>
-              <h2>No verses for "{this.props.submittedInput}" were found.</h2>
-              <p className="example">Maybe try "{exampleTag}" instead</p>
-            </div>
-          )
+          if (this.props.error) {
+            content = (
+              <div>
+                <h2>{this.props.error}</h2>
+                <p>Try again later</p>
+              </div>
+            )
+          }
+          else {
+            content = (
+              <div>
+                <h2>No verses for "{this.props.submittedInput}" were found.</h2>
+                <p className="example">Maybe try "{exampleTag}" instead</p>
+              </div>
+            )
+          }
         }
       }
     }
 
     else {
-      content = <h2>{loading}</h2>
+      content = <LoadingIcon />
     }
 
     return (
