@@ -9,7 +9,7 @@ export default class InputObject extends React.Component {
         <select className="select-input" value={this.props.currentVersion} onChange={this.props.changeVersion}>
           <option value="niv">New International Version (NIV)</option>
           <option value="nlt">New Living Translation (NLT)</option>
-        </select>
+        </select><br />
       </form>
     );
   }

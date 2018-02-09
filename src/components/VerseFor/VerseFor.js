@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Header from './Header.js';
 import Body from './Body.js';
 
@@ -10,7 +11,10 @@ export default class VerseFor extends React.Component {
       loading: false,
       submittedInput: "",
       copyright: getCopyright("nlt"),
-      error: ""
+      error: "",
+      sortBy: "random",
+      oldTestament: true,
+      newTestament: true
     }
 
     this.updateVerses = this.updateVerses.bind(this);
@@ -18,23 +22,20 @@ export default class VerseFor extends React.Component {
     this.updateSubmittedInput = this.updateSubmittedInput.bind(this);
     this.updateCopyright = this.updateCopyright.bind(this);
     this.updateError = this.updateError.bind(this);
+    this.updateSort = this.updateSort.bind(this);
+    this.updateTestament = this.updateTestament.bind(this);
   }
 
   updateVerses(verses) {
-    if (verses.length <= 5) {
-      this.setState({currentVerses: shuffle(verses)});
-    } else {
-      this.setState({currentVerses: getRandom(verses, 5)})
-    }
+    this.setState({currentVerses: verses});
   }
 
   toggleLoading() {
-    let loading = !this.state.loading;
-    this.setState({loading: loading});
+    this.setState({loading: !this.state.loading});
   }
 
   updateSubmittedInput(input) {
-    this.setState({submittedInput: input})
+    this.setState({submittedInput: input});
   }
 
   updateCopyright(version) {
@@ -43,6 +44,19 @@ export default class VerseFor extends React.Component {
 
   updateError(error) {
     this.setState({error: error});
+  }
+
+  updateSort(event) {
+    this.setState({sortBy: event.target.value})
+  }
+
+  updateTestament(event) {
+    if (event.target.value === "old") {
+      this.setState({oldTestament: event.target.checked});
+    }
+    else if (event.target.value === "new") {
+      this.setState({newTestament: event.target.checked});
+    }
   }
 
   render() {
@@ -54,6 +68,9 @@ export default class VerseFor extends React.Component {
           updateSubmittedInput={this.updateSubmittedInput}
           updateCopyright={this.updateCopyright}
           updateError={this.updateError}
+          verses={this.state.currentVerses}
+          updateSort={this.updateSort}
+          updateTestament={this.updateTestament}
         />
         <Body
           verses={this.state.currentVerses}
@@ -62,43 +79,12 @@ export default class VerseFor extends React.Component {
           submittedInput={this.state.submittedInput}
           copyright={this.state.copyright}
           error={this.state.error}
+          sortBy={this.state.sortBy}
+          testaments={[this.state.oldTestament, this.state.newTestament]}
         />
       </div>
     );
   }
-}
-
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
-function getRandom(arr, n) {
-    var result = new Array(n),
-        len = arr.length,
-        taken = new Array(len);
-    if (n > len)
-        throw new RangeError("getRandom: more elements taken than available");
-    while (n--) {
-        var x = Math.floor(Math.random() * len);
-        result[n] = arr[x in taken ? taken[x] : x];
-        taken[x] = --len;
-    }
-    return result;
 }
 
 function getCopyright(version) {
