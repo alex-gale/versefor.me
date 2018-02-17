@@ -1,6 +1,6 @@
 {
   "name": "versefor",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.2",

@@ -21,24 +21,31 @@ export default class Header extends React.Component {
   }
 
   updateInput(event) {
+    // update the userinput from the InputObject
     this.setState({inputValue: event.target.value});
   }
 
   submitInput(event) {
+    // assign for use in the catch block
     var that = this
+
+    // blank verses
     this.props.updateVerses([]);
 
+    // if the input is NOT blank
     if (this.state.inputValue !== "") {
       this.props.toggleLoading();
 
       //Fetch with timeout detection
-      timeout(2000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
+      timeout(5000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
         .then(result => {return result.json()})
         .then(data => {
           if (data.success) {
+            // if the returned data is successful, update the stored verses and clear any errors
             this.props.updateVerses(data.data);
             this.props.updateError("");
           } else {
+            // if the data is unsuccessful, clear verses to avoid confusion
             this.props.updateVerses([]);
           }
 
@@ -50,29 +57,37 @@ export default class Header extends React.Component {
       })
     }
 
+    // update the previously submitted input so that Body can access it if no verses were found
     this.props.updateSubmittedInput(this.state.inputValue);
+
+    // prevent a page refresh if run by a form
     if (event) event.preventDefault();
   }
 
   changeVersion(event) {
-    this.setState({currentVersion: event.target.value});
+    // when user changes the version with the dropdown, auto update verses and copyright info
     this.props.updateCopyright(event.target.value);
-    this.submitInput();
+    this.setState({currentVersion: event.target.value}, function() {
+      this.submitInput();
+    })
   }
 
   addOptionsToggle() {
+    // toggle additional options (sorting and stuff) on click
     this.setState({addOptionsVisible: !this.state.addOptionsVisible})
-    this.state.addOptionsVisible ? this.setState({addOptionsIcon: faAngleDown}) : this.setState({addOptionsIcon: faAngleUp})
+    // change icon
+    this.state.addOptionsVisible ? this.setState({addOptionsIcon: faAngleUp}) : this.setState({addOptionsIcon: faAngleDown})
   }
 
   render() {
+    // classname for hiding/showing additional options
     const addOptionsClassName = "addoptions-content" + (this.state.addOptionsVisible ? "" : " hide")
 
     return (
       <div>
         <div className="header-container">
           <div className="header">
-            <h1 className="title">I need a verse for...</h1>
+            <h1 className="title">I need a Verse For...</h1>
             <InputObject
               value={this.state.inputValue}
               handleChange={this.updateInput}
