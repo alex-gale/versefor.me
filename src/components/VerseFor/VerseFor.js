@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Header from './Header.js';
-import Body from './Body.js';
+import Dropdown from './Dropdown';
+import Header from './Header';
+import Body from './Body';
 
 export default class VerseFor extends React.Component {
   constructor(props) {
@@ -69,6 +70,7 @@ export default class VerseFor extends React.Component {
   render() {
     return (
       <div className="container">
+				<Dropdown />
         <Header
           updateVerses={this.updateVerses}
           toggleLoading={this.toggleLoading}
