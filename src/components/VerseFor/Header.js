@@ -1,8 +1,10 @@
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {faAngleDown, faAngleUp} from '@fortawesome/fontawesome-free-solid';
+import Waypoint from 'react-waypoint'
 
 import InputObject from './InputObject.js';
+import Dropdown from './Dropdown';
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -11,13 +13,16 @@ export default class Header extends React.Component {
       inputValue: "",
       currentVersion: "nlt",
       addOptionsIcon: faAngleDown,
-      addOptionsVisible: false
+      addOptionsVisible: false,
+			dropdownState: "hidden"
     };
 
     this.updateInput = this.updateInput.bind(this);
     this.submitInput = this.submitInput.bind(this);
     this.changeVersion = this.changeVersion.bind(this);
     this.addOptionsToggle = this.addOptionsToggle.bind(this);
+    this.showDropdown = this.showDropdown.bind(this);
+    this.hideDropdown = this.hideDropdown.bind(this);
   }
 
   updateInput(event) {
@@ -26,7 +31,7 @@ export default class Header extends React.Component {
   }
 
   submitInput(event) {
-    // assign for use in the catch block
+    // assign for use in the catch block (award for the most self-documenting line ever)
     var that = this
 
     // blank verses
@@ -79,12 +84,26 @@ export default class Header extends React.Component {
     this.state.addOptionsVisible ? this.setState({addOptionsIcon: faAngleUp}) : this.setState({addOptionsIcon: faAngleDown})
   }
 
+	showDropdown() {
+		this.setState({dropdownState: ""})
+	}
+
+	hideDropdown() {
+		this.setState({dropdownState: "hidden"})
+	}
+
   render() {
     // classname for hiding/showing additional options
     const addOptionsClassName = "addoptions-content" + (this.state.addOptionsVisible ? "" : " hide")
 
     return (
       <div>
+				<Dropdown
+					state={this.state.dropdownState}
+					value={this.state.inputValue}
+					handleChange={this.updateInput}
+					handleSubmit={this.submitInput}
+				/>
         <div className="header-container">
           <div className="header">
             <h1 className="title">I need a Verse For...</h1>
@@ -113,6 +132,8 @@ export default class Header extends React.Component {
             </div>
           </div>
         </div>
+
+				<Waypoint onLeave={this.showDropdown} onEnter={this.hideDropdown} />
       </div>
     );
   }
