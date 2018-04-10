@@ -149,8 +149,33 @@ input[type=checkbox]  {
   }
 }
 
-.header-container {
-  @include background
+.hidden {
+	margin-top: -69px;
+	pointer-events: none;
+}
+
+.dropdown {
+	width: 100%;
+	padding: 10px;
+	background-color: black;
+	text-align: center;
+	border-bottom: solid 5px $darkColor;
+	display: inline-block;
+	position: fixed;
+	z-index: 1;
+	transition: margin-top 0.3s;
+
+	@include background
+
+	.title {
+		font-size: 30px;
+		user-select: none;
+		font-family: 'Lobster', cursive;
+
+		@media only screen and (max-width: 400px) {
+			font-size: 11vw;
+		}
+	}
 }
 
 .header {
@@ -159,20 +184,10 @@ input[type=checkbox]  {
   background-color: rgba(255, 255, 255, 0.3);
   padding: 10px;
   width: 100%;
-  font-family: 'Lobster', cursive;
   text-align: center;
   border-bottom: solid 2.5px $darkColor;
 
-  &:before {
-    position: absolute;
-    left: 0;
-    z-index: -1;
-    content: " ";
-    width: 100%;
-    height: 100%;
-    @include background;
-    filter: blur(5px);
-  }
+	@include background
 
   .addoptions-dropdown {
     font-family: 'Bitter', serif;
@@ -188,14 +203,16 @@ input[type=checkbox]  {
     }
   }
 
-  h1 {
-    font-size: 50px;
-    user-select: none;
+	.title {
+		font-size: 50px;
+		user-select: none;
+		font-family: 'Lobster', cursive;
+		margin-bottom: 20px;
 
-    @media only screen and (max-width: 400px) {
-      font-size: 11vw;
-    }
-  }
+		@media only screen and (max-width: 400px) {
+			font-size: 11vw;
+		}
+	}
 }
 
 // all the search stuff
@@ -207,7 +224,6 @@ input[type=checkbox]  {
     padding-right: 81px;
     width: 50vw;
     max-width: 600px;
-    margin-top: 20px;
 
     @media only screen and (max-width: 511px) {
       width: 100%;
@@ -239,7 +255,6 @@ input[type=checkbox]  {
   font-family: 'Bitter', serif;
 
   .addoptions-content {
-    height: auto;
     max-height: 41.5px;
     overflow: hidden;
     transition: 0.3s ease;
@@ -263,6 +278,10 @@ input[type=checkbox]  {
       @media only screen and (max-width: 616px) {
         margin-bottom: 5px;
       }
+
+			@media only screen and (max-width: 340px) {
+				font-size: 4vw;
+			}
 
       p {
         display: inline-block;
