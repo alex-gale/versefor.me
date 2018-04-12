@@ -17,7 +17,9 @@ export default class Body extends React.Component {
     }
 
     // example tags, minus what the user just inputted
-    var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'theft', 'greed', 'swearing', 'salad', 'pig', 'baptism'].filter((tag) => {return tag !== this.props.submittedInput});
+    var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'theft', 'greed', 'swearing', 'salad', 'pig', 'baptism'].filter((tag) => {
+			return tag !== this.props.submittedInput
+		});
     var exampleTag = tags[Math.floor(Math.random() * tags.length)]
 
     var content;

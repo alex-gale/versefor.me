@@ -5,7 +5,9 @@ export default class Verse extends React.Component {
     // stick together bits of verse info for easy display
     var verse = this.props.verse;
     var verseName = verse.book + " " + verse.chapter + ":" + verse.verse;
-    var verseTags = verse.tags.map((tag) => <div key={tag} className="tag">{tag}</div>)
+    var verseTags = verse.tags.map((tag) => {
+			return <div key={tag} className="tag">{tag}</div>
+		})
     var verseText = verse.text
 
     return (
