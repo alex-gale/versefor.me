@@ -4,6 +4,21 @@ import Verse from './Verse.js';
 import LoadingIcon from './LoadingIcon.js';
 
 export default class Body extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			randomShown: 5,
+			previousInput: ""
+		}
+
+		this.moreVerses = this.moreVerses.bind(this);
+	}
+
+	moreVerses() {
+		var randomShown = this.state.randomShown + 5;
+		this.setState({randomShown: randomShown});
+	}
+
   render() {
     var verses = this.props.verses;
 
@@ -13,11 +28,11 @@ export default class Body extends React.Component {
 
     // shuffle verses if user wants them shuffled
     if (this.props.sortBy === "random") {
-      verses = shuffle(verses).slice(0, 5);
+      verses = verses.slice(0, this.state.randomShown);
     }
 
     // example tags, minus what the user just inputted
-    var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'theft', 'greed', 'swearing', 'salad', 'pig', 'baptism'].filter((tag) => {
+    var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'theft', 'greed', 'swearing', 'salad', 'pig', 'baptism', 'lust', 'promises'].filter((tag) => {
 			return tag !== this.props.submittedInput
 		});
     var exampleTag = tags[Math.floor(Math.random() * tags.length)]
@@ -31,7 +46,10 @@ export default class Body extends React.Component {
       if (verses.length > 0 ) {
         content =
           <div>
-            {verses.map((verse, i) => <Verse key={i} verse={verse} />)}
+            {verses.map((verse, i) => {
+							return <Verse key={i} verse={verse} />
+						})}
+						{this.props.verses.length > this.state.randomShown ? <p className="more-button" onClick={this.moreVerses}>More verses...</p> : null}
             <span className="copyright">{this.props.copyright}</span>
           </div>;
       }
@@ -80,26 +98,4 @@ export default class Body extends React.Component {
       </div>
     );
   }
-}
-
-
-// shuffle function I stole off the internet
-function shuffle(array) {
-  array = array.slice();
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
 }

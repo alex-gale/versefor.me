@@ -8,18 +8,18 @@ export default class Verse extends React.Component {
     var verseTags = verse.tags.map((tag) => {
 			return <div key={tag} className="tag">{tag}</div>
 		})
-    var verseText = verse.text
 
     return (
-      <div className="verse-box">
+      <div className="verse">
         <div className="verse-info">
           <p className="verse-title">{verseName}</p>
+					<p className="verse-testament" title={`${verse.testament} testament`}>{verse.testament}</p>
           <div className="verse-tags">
             {verseTags}
           </div>
         </div>
         <div className="verse-text">
-          <p>{verseText}</p>
+          <p>{verse.text}</p>
         </div>
       </div>
     )

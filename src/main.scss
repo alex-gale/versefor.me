@@ -162,7 +162,7 @@ select {
 	display: inline-block;
 	position: fixed;
 	z-index: 1;
-	transition: margin-top 0.3s;
+	transition: margin-top 0.3s ease;
 
 	@include background
 }
@@ -308,7 +308,7 @@ select {
   }
 }
 
-.verse-box {
+.verse {
   margin: 20px;
   max-width: 500px;
   min-height: 135px;
@@ -330,21 +330,43 @@ select {
     color: white;
     text-align: left;
   }
-	
-  .verse-text {
+
+	.verse-title {
+		display: inline-block;
+	}
+
+	.verse-testament {
+		float: right;
+		color: #6b6868;
+		display: inline-block;
+	}
+
+	.verse-tags {
+		.tag {
+		  display: inline-block;
+		  background: #585858;
+		  padding-left: 5px;
+		  padding-right: 5px;
+		  border-radius: 2em;
+		  margin-right: 10px;
+		  margin-top: 5px;
+		}
+	}
+
+	.verse-text {
     padding: 10px;
     color: whitesmoke;
   }
 }
 
-.tag {
-  display: inline-block;
-  background: #585858;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-radius: 2em;
-  margin-right: 10px;
-  margin-top: 5px;
+.more-button {
+	cursor: pointer;
+	margin-bottom: 20px;
+	user-select: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 .loadingIcon {
