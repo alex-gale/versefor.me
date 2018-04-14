@@ -97,25 +97,23 @@ export default class Header extends React.Component {
     const addOptionsClassName = "addoptions-content" + (this.state.addOptionsVisible ? "" : " hide")
 
     return (
-      <div>
+      <header>
 				<Dropdown
 					state={this.state.dropdownState}
 					value={this.state.inputValue}
 					handleChange={this.updateInput}
 					handleSubmit={this.submitInput}
 				/>
-        <div className="header-container">
-          <div className="header">
-            <h1 className="title">I need a Verse For...</h1>
-            <InputObject
-              value={this.state.inputValue}
-              handleChange={this.updateInput}
-              handleSubmit={this.submitInput}
-              currentVersion={this.state.currentVersion}
-              changeVersion={this.changeVersion}
-            /><br />
-            <p onClick={this.addOptionsToggle} className="addoptions-dropdown">Additional Options <FontAwesomeIcon className="icon" icon={this.state.addOptionsIcon} /></p>
-          </div>
+        <div className="header-body">
+          <h1 className="title">I need a Verse For...</h1>
+          <InputObject
+            value={this.state.inputValue}
+            handleChange={this.updateInput}
+            handleSubmit={this.submitInput}
+            currentVersion={this.state.currentVersion}
+            changeVersion={this.changeVersion}
+          /><br />
+          <p onClick={this.addOptionsToggle} className="addoptions-dropdown">Additional Options <FontAwesomeIcon className="icon" icon={this.state.addOptionsIcon} /></p>
         </div>
 
         <div className="addoptions">
@@ -134,7 +132,7 @@ export default class Header extends React.Component {
         </div>
 
 				<Waypoint onLeave={this.showDropdown} onEnter={this.hideDropdown} />
-      </div>
+      </header>
     );
   }
 }

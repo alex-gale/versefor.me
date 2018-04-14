@@ -31,7 +31,7 @@ body {
   overflow-x: hidden;
 }
 
-.textInput {
+input[type="text"] {
   padding: 5px;
   transition: border 0.3s;
   border: solid 5px $lightColor;
@@ -43,44 +43,6 @@ body {
   &:focus {
     border: solid 5px $darkColor;
     outline: none;
-  }
-}
-
-select {
-  padding: 5px;
-  padding-right: 35px;
-  border: solid 5px $lightColor;
-  transition: border 0.3s, background-image 0.3s;
-  font-family: 'Bitter', serif;
-  font-size: 20px;
-  background-color: white;
-  background-image: url('./images/downarrow.png');
-  background-position: calc(100% - 10px);
-  background-repeat: no-repeat;
-  background-size: 20px 12.50px;
-  border-radius: 0;
-  appearance: none;
-
-  &:focus {
-    outline: none;
-    border: solid 5px $darkColor;
-  }
-}
-
-.button {
-  border: solid 5px $lightColor;
-  padding: 5px;
-  font-size: 20px;
-  background-color: #ccff96;
-  font-family: 'Bitter', serif;
-  transition: border 0.3s, background-color 0.3s;
-  outline: none;
-  border-radius: 0;
-  appearance: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #9be053;
   }
 }
 
@@ -96,7 +58,7 @@ input[type=radio] {
       display: inline-block;
       vertical-align: top;
       border-radius: 100%;
-      border: solid 2px #969696;
+      border: solid 2px $darkColor;
       width: 15px;
       height: 15px;
       background-color: #bab7b7;
@@ -128,7 +90,7 @@ input[type=checkbox]  {
       content: '';
       display: inline-block;
       vertical-align: top;
-      border: solid 2px #969696;
+      border: solid 2px $darkColor;
       width: 15px;
       height: 15px;
       background-color: #bab7b7;
@@ -149,9 +111,46 @@ input[type=checkbox]  {
   }
 }
 
+input[type="submit"] {
+  border: solid 5px $lightColor;
+  padding: 5px;
+  font-size: 20px;
+  background-color: #ccff96;
+  font-family: 'Bitter', serif;
+  transition: border 0.3s, background-color 0.3s;
+  outline: none;
+  border-radius: 0;
+  appearance: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #9be053;
+  }
+}
+
+select {
+  padding: 5px;
+  padding-right: 35px;
+  border: solid 5px $lightColor;
+  transition: 0.3s;
+  font-family: 'Bitter', serif;
+  font-size: 20px;
+  background-color: white;
+  background-image: url('./images/downarrow.png');
+  background-position: calc(100% - 10px);
+  background-repeat: no-repeat;
+  background-size: 20px 12.50px;
+  border-radius: 0;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border: solid 5px $darkColor;
+  }
+}
+
 .hidden {
 	margin-top: -69px;
-	pointer-events: none;
 }
 
 .dropdown {
@@ -163,22 +162,12 @@ input[type=checkbox]  {
 	display: inline-block;
 	position: fixed;
 	z-index: 1;
-	transition: margin-top 0.3s;
+	transition: margin-top 0.3s ease;
 
 	@include background
-
-	.title {
-		font-size: 30px;
-		user-select: none;
-		font-family: 'Lobster', cursive;
-
-		@media only screen and (max-width: 400px) {
-			font-size: 11vw;
-		}
-	}
 }
 
-.header {
+.header-body {
   position: relative;
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.3);
@@ -319,7 +308,7 @@ input[type=checkbox]  {
   }
 }
 
-.verse-box {
+.verse {
   margin: 20px;
   max-width: 500px;
   min-height: 135px;
@@ -341,20 +330,43 @@ input[type=checkbox]  {
     color: white;
     text-align: left;
   }
-  .verse-text {
+
+	.verse-title {
+		display: inline-block;
+	}
+
+	.verse-testament {
+		float: right;
+		color: #585858;
+		display: inline-block;
+	}
+
+	.verse-tags {
+		.tag {
+		  display: inline-block;
+		  background: #585858;
+		  padding-left: 5px;
+		  padding-right: 5px;
+		  border-radius: 2em;
+		  margin-right: 10px;
+		  margin-top: 5px;
+		}
+	}
+
+	.verse-text {
     padding: 10px;
     color: whitesmoke;
   }
 }
 
-.tag {
-  display: inline-block;
-  background: #585858;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-radius: 2em;
-  margin-right: 10px;
-  margin-top: 5px;
+.more-button {
+	cursor: pointer;
+	margin-bottom: 20px;
+	user-select: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 .loadingIcon {

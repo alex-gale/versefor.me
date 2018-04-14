@@ -6,8 +6,8 @@ export default class Header extends React.Component {
 
 		return (
 			<form className={_class} onSubmit={this.props.handleSubmit}>
-				<input className="textInput search-input" type="text" value={this.props.value} onChange={this.props.handleChange} disabled={this.props.state === "hidden"} />
-				<input className="button search-button" type="submit" value="Search" />
+				<input className="search-input" type="text" value={this.props.value} onChange={this.props.handleChange} disabled={this.props.state === "hidden"} />
+				<input className="search-button" type="submit" value="Search" />
 			</form>
 		)
 	}

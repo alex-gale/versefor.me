@@ -4,21 +4,52 @@ import Verse from './Verse.js';
 import LoadingIcon from './LoadingIcon.js';
 
 export default class Body extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			versesShown: 5,
+			exampleTag: this.newExampleTag()
+		}
+
+		this.moreVerses = this.moreVerses.bind(this);
+	}
+
+	componentWillReceiveProps() {
+		this.setState({ versesShown: 5, exampleTag: this.newExampleTag() });
+	}
+
+	moreVerses() {
+		let versesShown = this.state.versesShown + 5;
+		this.setState({versesShown: versesShown});
+	}
+
+	newExampleTag() {
+		// generate random example tag for user
+		var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'theft', 'greed', 'swearing', 'salad', 'pig', 'baptism', 'lust', 'promises'];
+    var exampleTag = tags[Math.floor(Math.random() * tags.length)];
+
+		return exampleTag;
+	}
+
   render() {
-    var verses = this.props.verses;
+    let verses = this.props.verses;
+		let testamentText = "";
 
     // Filter based on user tickbox input
-    if (!this.props.testaments[0]) verses = verses.filter((verse) => {return verse.testament !== "old"});
-    if (!this.props.testaments[1]) verses = verses.filter((verse) => {return verse.testament !== "new"});
+    if (!this.props.testaments[0]) {
+			verses = verses.filter((verse) => {return verse.testament !== "old"});
+			testamentText = " new testament";
+		}
+    if (!this.props.testaments[1]) {
+			verses = verses.filter((verse) => {return verse.testament !== "new"});
+			testamentText = " old testament";
+		}
 
-    // shuffle verses if user wants them shuffled
-    if (this.props.sortBy === "random") {
-      verses = shuffle(verses).slice(0, 5);
-    }
+		// number of verses present after any filtering
+		const verseCount = verses.length;
 
-    // example tags, minus what the user just inputted
-    var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'theft', 'greed', 'swearing', 'salad', 'pig', 'baptism'].filter((tag) => {return tag !== this.props.submittedInput});
-    var exampleTag = tags[Math.floor(Math.random() * tags.length)]
+		// only show correct number of verses
+		let versesSliced = verses.slice(0, this.state.versesShown);
 
     var content;
 
@@ -29,7 +60,11 @@ export default class Body extends React.Component {
       if (verses.length > 0 ) {
         content =
           <div>
-            {verses.map((verse, i) => <Verse key={i} verse={verse} />)}
+						<p>{verseCount}<span style={{ fontWeight: 'bold' }}>{testamentText}</span> verses found for <span style={{ fontWeight: 'bold' }}>{this.props.submittedInput.toLowerCase()}</span></p>
+            {versesSliced.map((verse, i) => {
+							return <Verse key={i} verse={verse} />
+						})}
+						{verses.length > this.state.versesShown ? <p className="more-button" onClick={this.moreVerses}>More verses...</p> : null}
             <span className="copyright">{this.props.copyright}</span>
           </div>;
       }
@@ -40,7 +75,7 @@ export default class Body extends React.Component {
           content = (
             <div>
               <h2>Type a keyword into the box above to get related Bible verses.</h2>
-              <p className="example">For example, try "{exampleTag}"</p>
+              <p className="example">For example, try "{this.state.exampleTag}"</p>
             </div>
           )
         }
@@ -58,7 +93,7 @@ export default class Body extends React.Component {
             content = (
               <div>
                 <h2>No verses for "{this.props.submittedInput}" were found.</h2>
-                <p className="example">Maybe try "{exampleTag}" instead</p>
+                <p className="example">Maybe try "{this.state.exampleTag}" instead</p>
               </div>
             )
           }
@@ -73,31 +108,9 @@ export default class Body extends React.Component {
 
     // the ol' render-a-roo
     return (
-      <div className="content">
+      <main className="content">
         {content}
-      </div>
+      </main>
     );
   }
-}
-
-
-// shuffle function I stole off the internet
-function shuffle(array) {
-  array = array.slice();
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
 }

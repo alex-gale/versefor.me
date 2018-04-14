@@ -8,6 +8,7 @@ export default class VerseFor extends React.Component {
     super(props);
     this.state = {
       currentVerses: [],
+			shuffledVerses: [],
       loading: false,
       submittedInput: "",
       copyright: getCopyright("nlt"),
@@ -28,7 +29,7 @@ export default class VerseFor extends React.Component {
 
   updateVerses(verses) {
     // import new verses as array
-    this.setState({currentVerses: verses});
+    this.setState({currentVerses: verses, shuffledVerses: shuffle(verses)});
   }
 
   toggleLoading() {
@@ -75,12 +76,11 @@ export default class VerseFor extends React.Component {
           updateSubmittedInput={this.updateSubmittedInput}
           updateCopyright={this.updateCopyright}
           updateError={this.updateError}
-          verses={this.state.currentVerses}
           updateSort={this.updateSort}
           updateTestament={this.updateTestament}
         />
         <Body
-          verses={this.state.currentVerses}
+          verses={this.state.sortBy === "random" ? this.state.shuffledVerses : this.state.currentVerses}
           loading={this.state.loading}
           toggleLoading={this.toggleLoading}
           submittedInput={this.state.submittedInput}
@@ -110,4 +110,25 @@ function getCopyright(version) {
     default:
       return ""
   }
+}
+
+// shuffle function I stole off the internet
+function shuffle(array) {
+  array = array.slice();
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
