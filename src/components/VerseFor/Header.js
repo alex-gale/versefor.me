@@ -11,7 +11,7 @@ export default class Header extends React.Component {
     super(props);
     this.state = {
       inputValue: "",
-      currentVersion: "nlt",
+      currentVersion: localStorage.getItem('version') ? localStorage.getItem('version') : 'nlt',
       addOptionsIcon: faAngleDown,
       addOptionsVisible: false,
 			dropdownState: "hidden",
@@ -86,6 +86,8 @@ export default class Header extends React.Component {
     this.setState({currentVersion: event.target.value}, function() {
       this.submitInput();
     })
+
+		localStorage.setItem('version', event.target.value)
   }
 
   addOptionsToggle() {
