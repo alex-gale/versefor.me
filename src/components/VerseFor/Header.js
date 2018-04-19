@@ -38,7 +38,7 @@ export default class Header extends React.Component {
 		// prevent a page refresh if run by a form
     if (event) event.preventDefault();
 
-		if (this.state.inputValue === this.state.lastInput) {
+		if (this.state.inputValue === this.state.lastInput && this.state.inputValue === "") {
 			return;
 		}
 
