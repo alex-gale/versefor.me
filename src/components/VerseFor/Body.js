@@ -18,15 +18,6 @@ export default class Body extends React.Component {
 		this.setState({ versesShown: 5, exampleTag: this.newExampleTag() });
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
-		if (nextProps.verses === this.props.verses) {
-			console.log("no")
-			return false;
-		}
-
-		return true;
-	}
-
 	moreVerses() {
 		let versesShown = this.state.versesShown + 5;
 		this.setState({versesShown: versesShown});

@@ -14,7 +14,8 @@ export default class Header extends React.Component {
       currentVersion: "nlt",
       addOptionsIcon: faAngleDown,
       addOptionsVisible: false,
-			dropdownState: "hidden"
+			dropdownState: "hidden",
+			lastInput: ""
     };
 
     this.updateInput = this.updateInput.bind(this);
@@ -36,6 +37,10 @@ export default class Header extends React.Component {
 
 		// prevent a page refresh if run by a form
     if (event) event.preventDefault();
+
+		if (this.state.inputValue === this.state.lastInput) {
+			return;
+		}
 
     // blank verses
     this.props.updateVerses([]);
@@ -71,7 +76,8 @@ export default class Header extends React.Component {
     }
 
 		// update the previously submitted input so that Body can access it if no verses were found
-    this.props.updateSubmittedInput(this.state.inputValue);
+		this.setState({lastInput: this.state.inputValue});
+		this.props.updateSubmittedInput(this.state.inputValue);
   }
 
   changeVersion(event) {
