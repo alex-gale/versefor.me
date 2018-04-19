@@ -11,10 +11,11 @@ export default class Header extends React.Component {
     super(props);
     this.state = {
       inputValue: "",
-      currentVersion: "nlt",
+      currentVersion: localStorage.getItem('version') ? localStorage.getItem('version') : 'nlt',
       addOptionsIcon: faAngleDown,
       addOptionsVisible: false,
-			dropdownState: "hidden"
+			dropdownState: "hidden",
+			lastInput: ""
     };
 
     this.updateInput = this.updateInput.bind(this);
@@ -34,12 +35,24 @@ export default class Header extends React.Component {
     // assign for use in the catch block (award for the most self-documenting line ever)
     var that = this
 
+		// prevent a page refresh if run by a form
+    if (event) event.preventDefault();
+
+		if (this.state.inputValue === this.state.lastInput && this.state.inputValue === "") {
+			return;
+		}
+
     // blank verses
     this.props.updateVerses([]);
 
     // if the input is NOT blank
     if (this.state.inputValue !== "") {
       this.props.toggleLoading();
+
+			if(!navigator.onLine) {
+				this.props.toggleLoading();
+				return this.props.updateError("You are offline!")
+			}
 
       //Fetch with timeout detection
       timeout(5000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
@@ -62,11 +75,9 @@ export default class Header extends React.Component {
       })
     }
 
-    // update the previously submitted input so that Body can access it if no verses were found
-    this.props.updateSubmittedInput(this.state.inputValue);
-
-    // prevent a page refresh if run by a form
-    if (event) event.preventDefault();
+		// update the previously submitted input so that Body can access it if no verses were found
+		this.setState({lastInput: this.state.inputValue});
+		this.props.updateSubmittedInput(this.state.inputValue);
   }
 
   changeVersion(event) {
@@ -75,6 +86,8 @@ export default class Header extends React.Component {
     this.setState({currentVersion: event.target.value}, function() {
       this.submitInput();
     })
+
+		localStorage.setItem('version', event.target.value)
   }
 
   addOptionsToggle() {

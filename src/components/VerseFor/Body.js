@@ -14,7 +14,7 @@ export default class Body extends React.Component {
 		this.moreVerses = this.moreVerses.bind(this);
 	}
 
-	componentWillReceiveProps() {
+	componentWillReceiveProps(nextProps) {
 		this.setState({ versesShown: 5, exampleTag: this.newExampleTag() });
 	}
 
@@ -57,7 +57,7 @@ export default class Body extends React.Component {
     if (!this.props.loading) {
 
       // If verses are currently stored
-      if (verses.length > 0 ) {
+      if (verses.length > 0) {
         content =
           <div>
 						<p>{verseCount}<span style={{ fontWeight: 'bold' }}>{testamentText}</span> verses found for <span style={{ fontWeight: 'bold' }}>{this.props.submittedInput.toLowerCase()}</span></p>
