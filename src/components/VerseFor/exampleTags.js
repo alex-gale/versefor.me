@@ -1,0 +1,22 @@
+export const exampleTags = [
+	'idols',
+	'creation',
+	'parents',
+	'murder',
+	'envy',
+	'lying',
+	'church',
+	'theft',
+	'greed',
+	'swearing',
+	'salad',
+	'pig',
+	'baptism',
+	'lust',
+	'promises',
+	'alcohol',
+	'adultery',
+	'anger',
+	'anxiety',
+	'love'
+]

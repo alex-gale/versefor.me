@@ -55,8 +55,15 @@ export default class Header extends React.Component {
 			}
 
       //Fetch with timeout detection
-      timeout(5000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
-        .then(result => {return result.json()})
+      timeout(10000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
+        .then(result => {
+					if (result.status === 429) {
+						return {
+							success: false, status: 429
+						}
+					}
+					return result.json()
+				})
         .then(data => {
           if (data.success) {
             // if the returned data is successful, update the stored verses and clear any errors
@@ -65,6 +72,9 @@ export default class Header extends React.Component {
           } else {
             // if the data is unsuccessful, clear verses to avoid confusion
             this.props.updateVerses([]);
+						if (data.status === 429) {
+							this.props.updateError("Too many requests!");
+						}
           }
 
           this.props.toggleLoading();
@@ -75,8 +85,9 @@ export default class Header extends React.Component {
       })
     }
 
-		// update the previously submitted input so that Body can access it if no verses were found
 		this.setState({lastInput: this.state.inputValue});
+
+		// update the previously submitted input so that Body can access it if no verses were found
 		this.props.updateSubmittedInput(this.state.inputValue);
   }
 
@@ -107,7 +118,8 @@ export default class Header extends React.Component {
 
   render() {
     // classname for hiding/showing additional options
-    const addOptionsClassName = "addoptions-content" + (this.state.addOptionsVisible ? "" : " hide")
+    const addOptionsClasses = ['addOptions-content'];
+		addOptionsClasses.push(this.state.addOptionsVisible ? "" : "hide");
 
     return (
       <header>
@@ -126,11 +138,11 @@ export default class Header extends React.Component {
             currentVersion={this.state.currentVersion}
             changeVersion={this.changeVersion}
           /><br />
-          <p onClick={this.addOptionsToggle} className="addoptions-dropdown">Additional Options <FontAwesomeIcon className="icon" icon={this.state.addOptionsIcon} /></p>
+          <p onClick={this.addOptionsToggle} className="addOptions-dropdown">Additional Options <FontAwesomeIcon className="icon" icon={this.state.addOptionsIcon} /></p>
         </div>
 
-        <div className="addoptions">
-          <div className={addOptionsClassName}>
+        <div className="addOptions">
+          <div className={addOptionsClasses.join(' ')}>
             <div className="addOptions-sortby">
               <p>Sort by:</p>
               <input className="radio" type="radio" name="sortBy" value="random" id="random" onChange={this.props.updateSort} defaultChecked /><label htmlFor="random">Random</label>

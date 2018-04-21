@@ -8,7 +8,9 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-      	<Route exact={true} path="/" component={VerseFor} />
+				<div>
+					<Route exact={false} path="/" component={VerseFor} />
+				</div>
       </Router>
     )
   }

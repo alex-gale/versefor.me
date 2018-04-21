@@ -2,6 +2,7 @@ import React from 'react';
 
 import Verse from './Verse.js';
 import LoadingIcon from './LoadingIcon.js';
+import { exampleTags } from './exampleTags.js';
 
 export default class Body extends React.Component {
 	constructor(props) {
@@ -25,15 +26,14 @@ export default class Body extends React.Component {
 
 	newExampleTag() {
 		// generate random example tag for user
-		var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'theft', 'greed', 'swearing', 'salad', 'pig', 'baptism', 'lust', 'promises'];
-    var exampleTag = tags[Math.floor(Math.random() * tags.length)];
-
+    var exampleTag = exampleTags[Math.floor(Math.random() * exampleTags.length)];
 		return exampleTag;
 	}
 
   render() {
     let verses = this.props.verses;
 		let testamentText = "";
+		let searchTerm = this.props.submittedInput.toLowerCase();
 
     // Filter based on user tickbox input
     if (!this.props.testaments[0]) {
@@ -56,22 +56,26 @@ export default class Body extends React.Component {
     // If not loading
     if (!this.props.loading) {
 
-      // If verses are currently stored
-      if (verses.length > 0) {
-        content =
+      if (verses.length > 0) { // If verses are currently stored
+
+				// Whether a synonym has been recognised by the API
+				var synonymised = verses[0].tags[0] !== searchTerm;
+
+        content = (
           <div>
-						<p>{verseCount}<span style={{ fontWeight: 'bold' }}>{testamentText}</span> verses found for <span style={{ fontWeight: 'bold' }}>{this.props.submittedInput.toLowerCase()}</span></p>
+						<p>{verseCount}<span style={{ fontWeight: 'bold' }}>{testamentText}</span> verses found for <span style={{ fontWeight: 'bold' }}>{verses[0].tags[0]}</span>{synonymised ? ` (similar to ${searchTerm})` : null}</p>
             {versesSliced.map((verse, i) => {
 							return <Verse key={i} verse={verse} />
 						})}
-						{verses.length > this.state.versesShown ? <p className="more-button" onClick={this.moreVerses}>More verses...</p> : null}
+						{verses.length > this.state.versesShown ? <p className="more-button" onClick={this.moreVerses}>More verses...</p> : null}<br />
             <span className="copyright">{this.props.copyright}</span>
-          </div>;
+          </div>
+				)
       }
-      // If no verses are stored
-      else {
-        // If the input is blank
-        if (this.props.submittedInput === "") {
+
+      else { // If no verses are stored
+
+        if (this.props.submittedInput === "") { // If the input is blank
           content = (
             <div>
               <h2>Type a keyword into the box above to get related Bible verses.</h2>
@@ -79,8 +83,9 @@ export default class Body extends React.Component {
             </div>
           )
         }
-        // If no verses were returned by the API
-        else {
+
+        else { // If no verses were returned by the API
+
           if (this.props.error) {
             content = (
               <div>
@@ -98,11 +103,12 @@ export default class Body extends React.Component {
             )
           }
         }
+
       }
+
     }
 
-    // If loading
-    else {
+    else { // If loading
       content = <LoadingIcon />
     }
 
