@@ -1,7 +1,9 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import Verse from './Verse.js';
 import LoadingIcon from './LoadingIcon.js';
+import { exampleTags } from './exampleTags.js';
 
 export default class Body extends React.Component {
 	constructor(props) {
@@ -25,8 +27,7 @@ export default class Body extends React.Component {
 
 	newExampleTag() {
 		// generate random example tag for user
-		var tags = ['idols', 'creation', 'parents', 'murder', 'envy', 'lying', 'church', 'theft', 'greed', 'swearing', 'salad', 'pig', 'baptism', 'lust', 'promises'];
-    var exampleTag = tags[Math.floor(Math.random() * tags.length)];
+    var exampleTag = exampleTags[Math.floor(Math.random() * exampleTags.length)];
 
 		return exampleTag;
 	}
@@ -34,6 +35,7 @@ export default class Body extends React.Component {
   render() {
     let verses = this.props.verses;
 		let testamentText = "";
+		let searchTerm = this.props.submittedInput.toLowerCase();
 
     // Filter based on user tickbox input
     if (!this.props.testaments[0]) {
@@ -59,21 +61,25 @@ export default class Body extends React.Component {
       if (verses.length > 0) { // If verses are currently stored
 
 				// Whether a synonym has been recognised by the API
-				var synonymised = verses[0].tags[0] !== this.props.submittedInput.toLowerCase();
+				var synonymised = verses[0].tags[0] !== searchTerm;
 
-        content =
+        content = (
           <div>
-						<p>{verseCount}<span style={{ fontWeight: 'bold' }}>{testamentText}</span> verses found for <span style={{ fontWeight: 'bold' }}>{verses[0].tags[0]}</span>{synonymised ? ` (similar to ${this.props.submittedInput.toLowerCase()})` : null}</p>
+						<Helmet>
+							<title>{searchTerm} - VerseFor - Bible Verse for You</title>
+						</Helmet>
+
+						<p>{verseCount}<span style={{ fontWeight: 'bold' }}>{testamentText}</span> verses found for <span style={{ fontWeight: 'bold' }}>{verses[0].tags[0]}</span>{synonymised ? ` (similar to ${searchTerm})` : null}</p>
             {versesSliced.map((verse, i) => {
 							return <Verse key={i} verse={verse} />
 						})}
 						{verses.length > this.state.versesShown ? <p className="more-button" onClick={this.moreVerses}>More verses...</p> : null}
             <span className="copyright">{this.props.copyright}</span>
-          </div>;
-
+          </div>
+				)
       }
 
-      else {   // If no verses are stored
+      else { // If no verses are stored
 
         if (this.props.submittedInput === "") { // If the input is blank
           content = (
@@ -105,6 +111,7 @@ export default class Body extends React.Component {
         }
 
       }
+
     }
 
     else { // If loading

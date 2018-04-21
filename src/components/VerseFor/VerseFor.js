@@ -13,7 +13,7 @@ export default class VerseFor extends React.Component {
       submittedInput: "",
       copyright: getCopyright("nlt"),
       error: "",
-      sortBy: localStorage.getItem('sort') ? localStorage.getItem('sort') : "random",
+      sortBy: "random",
       oldTestament: true,
       newTestament: true
     }
@@ -55,8 +55,6 @@ export default class VerseFor extends React.Component {
   updateSort(event) {
     // update sorting type
     this.setState({sortBy: event.target.value})
-
-		localStorage.setItem('sort', event.target.value)
 	}
 
   updateTestament(event) {
