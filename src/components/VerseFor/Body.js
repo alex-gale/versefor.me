@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 
 import Verse from './Verse.js';
 import LoadingIcon from './LoadingIcon.js';
@@ -28,7 +27,6 @@ export default class Body extends React.Component {
 	newExampleTag() {
 		// generate random example tag for user
     var exampleTag = exampleTags[Math.floor(Math.random() * exampleTags.length)];
-
 		return exampleTag;
 	}
 
@@ -65,10 +63,6 @@ export default class Body extends React.Component {
 
         content = (
           <div>
-						<Helmet>
-							<title>{searchTerm} - VerseFor - Bible Verse for You</title>
-						</Helmet>
-
 						<p>{verseCount}<span style={{ fontWeight: 'bold' }}>{testamentText}</span> verses found for <span style={{ fontWeight: 'bold' }}>{verses[0].tags[0]}</span>{synonymised ? ` (similar to ${searchTerm})` : null}</p>
             {versesSliced.map((verse, i) => {
 							return <Verse key={i} verse={verse} />

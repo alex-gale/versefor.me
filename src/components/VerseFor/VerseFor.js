@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import Header from './Header';
 import Body from './Body';
@@ -68,8 +69,12 @@ export default class VerseFor extends React.Component {
   }
 
   render() {
+		let title = this.state.submittedInput ? `${this.state.submittedInput} - VerseFor - Bible Verses for You` : 'VerseFor - Bible Verses for You'
+
     return (
       <div className="container">
+				<Helmet title={title} />
+
         <Header
           updateVerses={this.updateVerses}
           toggleLoading={this.toggleLoading}

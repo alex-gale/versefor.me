@@ -17,5 +17,6 @@ export const exampleTags = [
 	'alcohol',
 	'adultery',
 	'anger',
-	'anxiety'
+	'anxiety',
+	'love'
 ]

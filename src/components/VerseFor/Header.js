@@ -75,8 +75,9 @@ export default class Header extends React.Component {
       })
     }
 
-		// update the previously submitted input so that Body can access it if no verses were found
 		this.setState({lastInput: this.state.inputValue});
+
+		// update the previously submitted input so that Body can access it if no verses were found
 		this.props.updateSubmittedInput(this.state.inputValue);
   }
 
