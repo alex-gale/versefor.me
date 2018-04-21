@@ -55,8 +55,15 @@ export default class Header extends React.Component {
 			}
 
       //Fetch with timeout detection
-      timeout(5000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
-        .then(result => {return result.json()})
+      timeout(10000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
+        .then(result => {
+					if (result.status === 429) {
+						return {
+							success: false, status: 429
+						}
+					}
+					return result.json()
+				})
         .then(data => {
           if (data.success) {
             // if the returned data is successful, update the stored verses and clear any errors
@@ -65,6 +72,9 @@ export default class Header extends React.Component {
           } else {
             // if the data is unsuccessful, clear verses to avoid confusion
             this.props.updateVerses([]);
+						if (data.status === 429) {
+							this.props.updateError("Too many requests!");
+						}
           }
 
           this.props.toggleLoading();

@@ -67,7 +67,7 @@ export default class Body extends React.Component {
             {versesSliced.map((verse, i) => {
 							return <Verse key={i} verse={verse} />
 						})}
-						{verses.length > this.state.versesShown ? <p className="more-button" onClick={this.moreVerses}>More verses...</p> : null}
+						{verses.length > this.state.versesShown ? <p className="more-button" onClick={this.moreVerses}>More verses...</p> : null}<br />
             <span className="copyright">{this.props.copyright}</span>
           </div>
 				)

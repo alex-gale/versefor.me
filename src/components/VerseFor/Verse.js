@@ -3,8 +3,8 @@ import React from 'react';
 export default class Verse extends React.Component {
   render() {
     // stick together bits of verse info for easy display
-    var verse = this.props.verse;
-    var verseName = `${verse.book} ${verse.chapter}:${verse.verse}`;
+    let verse = this.props.verse;
+    let verseName = `${verse.book} ${verse.chapter}:${verse.verse}`;
 
     return (
       <div className="verse">
