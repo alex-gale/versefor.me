@@ -55,7 +55,7 @@ export default class Header extends React.Component {
 			}
 
       //Fetch with timeout detection
-      timeout(10000, fetch(`https://api.wagical.co.uk/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
+      timeout(10000, fetch(`https://api.versefor.me/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
         .then(result => {
 					if (result.status === 429) {
 						return {

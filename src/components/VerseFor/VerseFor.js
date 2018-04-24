@@ -69,7 +69,7 @@ export default class VerseFor extends React.Component {
   }
 
   render() {
-		let title = this.state.submittedInput ? `${this.state.submittedInput} - VerseFor` : 'VerseFor - Bible Verses for You'
+		let title = this.state.submittedInput ? `VerseFor - ${this.state.submittedInput}` : 'VerseFor - Bible Verses for You'
 
     return (
       <div className="container">
