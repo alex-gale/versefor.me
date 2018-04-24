@@ -45,6 +45,11 @@ export default class Header extends React.Component {
     // blank verses
     this.props.updateVerses([]);
 
+		this.setState({lastInput: this.state.inputValue});
+
+		// update the previously submitted input so that Body can access it if no verses were found
+		this.props.updateSubmittedInput(this.state.inputValue);
+
     // if the input is NOT blank
     if (this.state.inputValue !== "") {
       this.props.toggleLoading();
@@ -84,11 +89,6 @@ export default class Header extends React.Component {
         that.props.toggleLoading();
       })
     }
-
-		this.setState({lastInput: this.state.inputValue});
-
-		// update the previously submitted input so that Body can access it if no verses were found
-		this.props.updateSubmittedInput(this.state.inputValue);
   }
 
   changeVersion(event) {
