@@ -5,6 +5,7 @@ import Waypoint from 'react-waypoint'
 
 import InputObject from './InputObject.js';
 import Dropdown from './Dropdown';
+import { getVerses } from '../../lib/getVerses'
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -32,9 +33,6 @@ export default class Header extends React.Component {
   }
 
   submitInput(event) {
-    // assign for use in the catch block (award for the most self-documenting line ever)
-    var that = this
-
 		// prevent a page refresh if run by a form
     if (event) event.preventDefault();
 
@@ -45,7 +43,7 @@ export default class Header extends React.Component {
     // blank verses
     this.props.updateVerses([]);
 
-		this.setState({lastInput: this.state.inputValue});
+		this.setState({ lastInput: this.state.inputValue });
 
 		// update the previously submitted input so that Body can access it if no verses were found
 		this.props.updateSubmittedInput(this.state.inputValue);
@@ -59,35 +57,19 @@ export default class Header extends React.Component {
 				return this.props.updateError("You are offline!")
 			}
 
-      //Fetch with timeout detection
-      timeout(10000, fetch(`https://api.versefor.me/bible/${this.state.currentVersion}?tag=${this.state.inputValue.toLowerCase().replace(/[^\w\s]/gi, '')}`)
-        .then(result => {
-					if (result.status === 429) {
-						return {
-							success: false, status: 429
-						}
-					}
-					return result.json()
-				})
-        .then(data => {
-          if (data.success) {
-            // if the returned data is successful, update the stored verses and clear any errors
-            this.props.updateVerses(data.data);
-            this.props.updateError("");
-          } else {
-            // if the data is unsuccessful, clear verses to avoid confusion
-            this.props.updateVerses([]);
-						if (data.status === 429) {
-							this.props.updateError("Too many requests!");
-						}
-          }
+      // fetch verses from database
+			getVerses(this.state.currentVersion, this.state.inputValue, (err, verses) => {
+				this.props.toggleLoading()
+				this.props.updateVerses([]);
 
-          this.props.toggleLoading();
-        })
-      ).catch(function(error) {
-        that.props.updateError("Could not connect to database :(");
-        that.props.toggleLoading();
-      })
+				// if there is error, return function and update the error message
+				if (err) {
+					return this.props.updateError(err.message)
+				}
+
+				this.props.updateVerses(verses)
+				this.props.updateError("")
+			})
     }
   }
 
@@ -160,13 +142,4 @@ export default class Header extends React.Component {
       </header>
     );
   }
-}
-
-function timeout(ms, promise) {
-  return new Promise(function(resolve, reject) {
-    setTimeout(function() {
-      reject(new Error("timeout"))
-    }, ms)
-    promise.then(resolve, reject)
-  })
 }

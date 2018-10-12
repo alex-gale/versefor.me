@@ -19,7 +19,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
-var port = 8090;
+var port = 3002;
 app.listen(port, function() {
   console.log("VerseFor running on port " + port + ", praise Jesus!");
 })

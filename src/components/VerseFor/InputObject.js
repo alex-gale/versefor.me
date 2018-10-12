@@ -1,11 +1,14 @@
-import React from 'react';
+import React from 'react'
+
+import TextInput from '../text-input'
+import Button from '../button'
 
 export default class InputObject extends React.Component {
   render() {
     return (
       <form className="search-form" onSubmit={this.props.handleSubmit}>
-        <input className="search-input" type="text" value={this.props.value} onChange={this.props.handleChange} />
-        <input className="search-button" type="submit" value="Search" /><br />
+        <TextInput className="search-input" value={this.props.value} onChange={this.props.handleChange} />
+        <Button className="search-button" value="Search" /><br />
         <select className="select-input" value={this.props.currentVersion} onChange={this.props.changeVersion}>
           <option value="esv">English Standard Version (ESV)</option>
           <option value="niv">New International Version (NIV)</option>
@@ -14,6 +17,6 @@ export default class InputObject extends React.Component {
           <option value="msg">The Message (MSG)</option>
         </select><br />
       </form>
-    );
+    )
   }
 }

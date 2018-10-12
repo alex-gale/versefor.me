@@ -1,0 +1,14 @@
+input[type="text"] {
+  padding: 5px;
+  transition: border 0.3s;
+  border: solid 5px #c9c9c9;
+  font-family: 'Bitter', serif;
+  font-size: 20px;
+  border-radius: 0;
+  appearance: none;
+}
+
+input[type="text"]:focus {
+	border: solid 5px #969696;
+	outline: none;
+}
