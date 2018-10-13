@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import Header from './Header';
-import Body from './Body';
+import Header from '../../components/VerseFor/Header';
+import Body from '../../components/VerseFor/Body';
 
 export default class VerseFor extends React.Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Verse from './Verse.js';
-import LoadingIcon from './LoadingIcon.js';
+import LoadingIcon from '../loading-icon';
 import { exampleTags } from './exampleTags.js';
 
 export default class Body extends React.Component {
