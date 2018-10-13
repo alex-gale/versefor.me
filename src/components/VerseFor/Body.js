@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import Verse from './Verse.js';
-import LoadingIcon from '../loading-icon';
-import { exampleTags } from './exampleTags.js';
+import Verse from '../verse'
+import LoadingIcon from '../loading-icon'
+import { exampleTags } from './exampleTags.js'
 
 export default class Body extends React.Component {
 	constructor(props) {
