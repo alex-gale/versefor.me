@@ -4,7 +4,7 @@ import {faAngleDown, faAngleUp} from '@fortawesome/fontawesome-free-solid';
 import Waypoint from 'react-waypoint'
 
 import InputObject from './InputObject.js';
-import Dropdown from './Dropdown';
+import DropdownSearch from '../dropdown-search';
 import { getVerses } from '../../lib/getVerses'
 
 export default class Header extends React.Component {
@@ -105,7 +105,7 @@ export default class Header extends React.Component {
 
     return (
       <header>
-				<Dropdown
+				<DropdownSearch
 					state={this.state.dropdownState}
 					value={this.state.inputValue}
 					handleChange={this.updateInput}

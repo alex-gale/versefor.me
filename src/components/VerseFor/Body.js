@@ -2,7 +2,7 @@ import React from 'react'
 
 import Verse from '../verse'
 import LoadingIcon from '../loading-icon'
-import { exampleTags } from './exampleTags.js'
+import { exampleTags } from '../../assets/exampleTags.js'
 
 export default class Body extends React.Component {
 	constructor(props) {
