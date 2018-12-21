@@ -1,7 +1,13 @@
 import timeout from './timeout'
 
 const getVerses = (version, tag, callback) => {
+	if (!navigator.onLine) {
+		console.log("offline")
+		return callback(new Error("You are offline!"))
+	}
+
 	const formattedTag = tag.toLowerCase().replace(/[^\w\s]/gi, '')
+	if (formattedTag === "") return callback(null, [])
 
 	timeout(10000, fetch(`https://api.versefor.me/bible/${version}?tag=${formattedTag}`, {
 		method: 'GET',

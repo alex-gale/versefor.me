@@ -1,0 +1,50 @@
+.verse {
+  margin: 20px;
+  max-width: 500px;
+  min-height: 135px;
+  background-color: #505050;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid 3px #c9c9c9;
+  text-align: left;
+  transition: all 0.3s;
+
+  &:hover {
+    border: solid 3px #969696;
+  }
+
+  .verse-info {
+    width: 100%;
+    padding: 10px;
+    background-color: #101010;
+    color: white;
+    text-align: left;
+  }
+
+  .verse-title {
+    display: inline-block;
+  }
+
+  .verse-testament {
+    float: right;
+    color: #585858;
+    display: inline-block;
+  }
+
+  .verse-tags {
+    .tag {
+      display: inline-block;
+      background: #585858;
+      padding-left: 5px;
+      padding-right: 5px;
+      border-radius: 2em;
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+  }
+
+  .verse-text {
+    padding: 10px;
+    color: whitesmoke;
+  }
+}

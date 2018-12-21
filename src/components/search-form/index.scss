@@ -1,0 +1,34 @@
+.search-form {
+  display: inline-block;
+
+  .search-input {
+    padding-left: 10px;
+    padding-right: 81px;
+    width: 50vw;
+    max-width: 600px;
+
+    @media only screen and (max-width: 511px) {
+      width: 100%;
+
+      &:focus + .search-button {
+        border-right: solid 5px #969696;
+        border-top: solid 5px #969696;
+        border-bottom: solid 5px #969696;
+      }
+    }
+  }
+
+  .search-button {
+    margin-left: 20px;
+
+    @media only screen and (max-width: 511px) {
+      margin-left: -81.4px;
+      border-left: none;
+    }
+  }
+
+  .select-input {
+    margin-top: 10px;
+    width: 100%;
+  }
+}

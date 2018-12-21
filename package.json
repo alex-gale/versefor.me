@@ -1,18 +1,21 @@
 {
   "name": "versefor",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/react-fontawesome": "^0.0.17",
-    "node-sass": "^4.9.3",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "aos": "^2.3.4",
+    "node-sass": "^4.11.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.0.4",
-    "react-waypoint": "^8.0.3"
+    "react-scripts": "^2.1.1",
+    "react-waypoint": "^8.1.0",
+    "shortid": "^2.2.14"
   },
   "scripts": {
     "start": "react-scripts start",
