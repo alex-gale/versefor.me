@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/react-fontawesome": "^0.0.17",
+    "aos": "^2.3.4",
     "node-sass": "^4.11.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",

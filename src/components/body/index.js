@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import shortid from 'shortid'
 
+import './index.scss'
 import Verse from '../verse'
 import LoadingIcon from '../loading-icon'
 import { exampleTags } from '../../assets/exampleTags.js'
