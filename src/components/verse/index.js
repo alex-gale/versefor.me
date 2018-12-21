@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import './index.css'
+import './index.scss'
 
-const Verse = ({ verse, ...props }) => {
+const Verse = ({ verse }) => {
 	const verseName = `${verse.book} ${verse.chapter}:${verse.verse}`
 
 	return (
@@ -21,6 +22,10 @@ const Verse = ({ verse, ...props }) => {
 			</div>
 		</div>
 	)
+}
+
+Verse.propTypes = {
+	verse: PropTypes.object.isRequired
 }
 
 export default Verse

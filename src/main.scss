@@ -1,14 +1,3 @@
-@mixin border-box {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
-@mixin background {
-  background-image: url('./assets/background.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 $lightColor: #c9c9c9;
 $darkColor: #969696;
 
@@ -17,8 +6,9 @@ $darkColor: #969696;
 * {
   margin: 0;
   padding: 0;
-
-  @include border-box;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 
   &::selection {
     background-color: #b4c7e7;
@@ -117,130 +107,6 @@ select {
   }
 }
 
-.header-body {
-  position: relative;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.3);
-  padding: 10px;
-  width: 100%;
-  text-align: center;
-  border-bottom: solid 2.5px $darkColor;
-
-	@include background
-
-  .addOptions-dropdown {
-    font-family: 'Bitter', serif;
-    margin-top: 10px;
-    font-weight: bold;
-    user-select: none;
-    transition: 0.3s;
-    display: inline-block;
-    cursor: pointer;
-
-    .icon {
-      margin-left: 5px;
-    }
-  }
-
-	.title {
-		font-size: 50px;
-		user-select: none;
-		font-family: 'Lobster', cursive;
-		margin-bottom: 20px;
-
-		@media only screen and (max-width: 400px) {
-			font-size: 11vw;
-		}
-	}
-}
-
-// all the search stuff
-.search-form {
-  display: inline-block;
-
-  .search-input {
-    padding-left: 10px;
-    padding-right: 81px;
-    width: 50vw;
-    max-width: 600px;
-
-    @media only screen and (max-width: 511px) {
-      width: 100%;
-
-      &:focus + .search-button {
-        border-right: solid 5px $darkColor;
-        border-top: solid 5px $darkColor;
-        border-bottom: solid 5px $darkColor;
-      }
-    }
-  }
-
-  .search-button {
-    margin-left: 20px;
-
-    @media only screen and (max-width: 511px) {
-      margin-left: -81.4px;
-      border-left: none;
-    }
-  }
-
-  .select-input {
-    margin-top: 10px;
-    width: 100%;
-  }
-}
-
-.addOptions {
-  font-family: 'Bitter', serif;
-
-  .addOptions-content {
-    max-height: 41.5px;
-    overflow: hidden;
-    transition: 0.3s ease;
-    width: auto;
-    background-color: $lightColor;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: 2.5px solid $darkColor;
-
-    @media only screen and (max-width: 615px) {
-      max-height: 63px;
-    }
-
-    div {
-      display: inline-block;
-      text-align: left;
-      margin-left: 20px;
-      margin-right: 20px;
-
-      @media only screen and (max-width: 616px) {
-        margin-bottom: 5px;
-      }
-
-			@media only screen and (max-width: 340px) {
-				font-size: 4vw;
-			}
-
-      p {
-        display: inline-block;
-        margin-right: 10px;
-        font-weight: bold;
-      }
-
-      label {
-        margin-right: 10px;
-      }
-    }
-  }
-
-  .hide {
-    max-height: 0px;
-    margin-top: 0px;
-    padding: 0px;
-  }
-}
-
 .content {
   width: 100%;
   padding: 20px;
@@ -256,15 +122,4 @@ select {
     white-space: pre-wrap;
     color: $lightColor
   }
-}
-
-.more-button {
-	cursor: pointer;
-	margin-bottom: 20px;
-	user-select: none;
-	display: inline-block;
-
-	&:hover {
-		text-decoration: underline;
-	}
 }

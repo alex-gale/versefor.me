@@ -4,54 +4,43 @@ import Verse from '../verse'
 import LoadingIcon from '../loading-icon'
 import { exampleTags } from '../../assets/exampleTags.js'
 
-export default class Body extends React.Component {
+export default class Body extends React.PureComponent {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
-			versesShown: 5,
 			exampleTag: this.newExampleTag()
 		}
-
-		this.moreVerses = this.moreVerses.bind(this);
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({ versesShown: 5, exampleTag: this.newExampleTag() });
-	}
-
-	moreVerses() {
-		let versesShown = this.state.versesShown + 5;
-		this.setState({versesShown: versesShown});
+	componentDidUpdate(prevProps) {
+		if (this.props.lastSearch !== prevProps.lastSearch) {
+			this.setState({ exampleTag: this.newExampleTag() })
+		}
 	}
 
 	newExampleTag() {
-		// generate random example tag for user
-    var exampleTag = exampleTags[Math.floor(Math.random() * exampleTags.length)];
-		return exampleTag;
+    return exampleTags[Math.floor(Math.random() * exampleTags.length)]
 	}
 
   render() {
-    let verses = this.props.verses;
-		let testamentText = "";
-		let searchTerm = this.props.submittedInput.toLowerCase();
+    let verses = this.props.verses
+		let testamentText = ""
+		let searchTerm = this.props.lastSearch.toLowerCase()
 
     // Filter based on user tickbox input
     if (!this.props.testaments[0]) {
-			verses = verses.filter((verse) => {return verse.testament !== "old"});
-			testamentText = " new testament";
+			verses = verses.filter((verse) => {return verse.testament !== "old"})
+			testamentText = " new testament"
 		}
     if (!this.props.testaments[1]) {
-			verses = verses.filter((verse) => {return verse.testament !== "new"});
-			testamentText = " old testament";
+			verses = verses.filter((verse) => {return verse.testament !== "new"})
+			testamentText = " old testament"
 		}
 
 		// number of verses present after any filtering
-		const verseCount = verses.length;
+		const verseCount = verses.length
 
-		// only show correct number of verses
-		let versesSliced = verses.slice(0, this.state.versesShown);
-
-    var content;
+    var content
 
     // If not loading
     if (!this.props.loading) {
@@ -59,15 +48,14 @@ export default class Body extends React.Component {
       if (verses.length > 0) { // If verses are currently stored
 
 				// Whether a synonym has been recognised by the API
-				var synonymised = verses[0].tags[0] !== searchTerm;
+				var synonymised = verses[0].tags[0] !== searchTerm
 
         content = (
           <div>
 						<p>{verseCount}<span style={{ fontWeight: 'bold' }}>{testamentText}</span> verses found for <span style={{ fontWeight: 'bold' }}>{verses[0].tags[0]}</span>{synonymised ? ` (similar to ${searchTerm})` : null}</p>
-            {versesSliced.map((verse, i) => {
+            {verses.map((verse, i) => {
 							return <Verse key={i} verse={verse} />
 						})}
-						{verses.length > this.state.versesShown ? <p className="more-button" onClick={this.moreVerses}>More verses...</p> : null}<br />
             <span className="copyright">{this.props.copyright}</span>
           </div>
 				)
@@ -75,7 +63,7 @@ export default class Body extends React.Component {
 
       else { // If no verses are stored
 
-        if (this.props.submittedInput === "") { // If the input is blank
+        if (this.props.lastSearch === "") { // If the input is blank
           content = (
             <div>
               <h2>Type a keyword into the box above to get related Bible verses.</h2>
@@ -97,7 +85,7 @@ export default class Body extends React.Component {
           else {
             content = (
               <div>
-                <h2>No verses for "{this.props.submittedInput}" were found.</h2>
+                <h2>No verses for "{this.props.lastSearch}" were found.</h2>
                 <p className="example">Maybe try "{this.state.exampleTag}" instead</p>
               </div>
             )
@@ -117,6 +105,6 @@ export default class Body extends React.Component {
       <main className="content">
         {content}
       </main>
-    );
+    )
   }
 }
