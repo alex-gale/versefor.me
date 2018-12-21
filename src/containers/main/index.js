@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 
 import Header from '../../components/header'
-import Body from '../../components/VerseFor/Body'
+import Body from '../../components/body'
 import copyright from '../../assets/copyright'
 import { getVerses } from '../../lib/getVerses'
 
@@ -17,9 +17,8 @@ export default class VerseFor extends React.Component {
       version: localStorage.getItem('version') ? localStorage.getItem('version') : 'nlt',
       copyright: "",
       error: "",
-      sortBy: "random",
-      oldTestament: true,
-      newTestament: true
+      sort: "random",
+      testaments: { old: true, new: true }
     }
 
     this.state.copyright = copyright[this.state.version]
@@ -43,26 +42,24 @@ export default class VerseFor extends React.Component {
   }
 
   updateVersion(version) {
-    this.setState({ version, copyright: copyright[version]})
+    this.setState({ version, copyright: copyright[version] })
   }
 
   updateSort(event) {
-    this.setState({sortBy: event.target.value})
+    this.setState({ sort: event.target.value })
 	}
 
   updateTestament(event) {
-    // update whether old or new testaments are checked
-    if (event.target.value === "old") {
-      this.setState({oldTestament: event.target.checked})
-    }
-    else if (event.target.value === "new") {
-      this.setState({newTestament: event.target.checked})
-    }
+    let testaments = Object.assign({}, this.state.testaments)
+    testaments[event.target.value] = event.target.checked
+
+    this.setState({ testaments })
   }
 
   search(tag) {
     if (this.state.loading) return
 
+    this.setState({ error: "" })
     this.updateVerses([])
     this.toggleLoading()
     this.setState({ lastSearch: tag })
@@ -73,7 +70,6 @@ export default class VerseFor extends React.Component {
       if (err) return this.setState({ error: err.message })
 
       this.updateVerses(verses)
-      this.setState({ error: "" })
     })
   }
 
@@ -92,33 +88,26 @@ export default class VerseFor extends React.Component {
           search={this.search}
         />
         <Body
-          verses={this.state.sortBy === "random" ? this.state.shuffledVerses : this.state.currentVerses}
+          verses={this.state.sort === "random" ? this.state.shuffledVerses : this.state.currentVerses}
           loading={this.state.loading}
-          toggleLoading={this.toggleLoading}
           lastSearch={this.state.lastSearch}
           copyright={this.state.copyright}
           error={this.state.error}
-          sortBy={this.state.sortBy}
-          testaments={[this.state.oldTestament, this.state.newTestament]}
+          testaments={this.state.testaments}
         />
       </div>
     )
   }
 }
 
-// shuffle function I stole off the internet
 const shuffle = (array) => {
   array = array.slice()
   var currentIndex = array.length, temporaryValue, randomIndex
 
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex)
     currentIndex -= 1
 
-    // And swap it with the current element.
     temporaryValue = array[currentIndex]
     array[currentIndex] = array[randomIndex]
     array[randomIndex] = temporaryValue

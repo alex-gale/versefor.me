@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import shortid from 'shortid'
 
 import './index.scss'
 
@@ -13,7 +14,7 @@ const Verse = ({ verse }) => {
 				<p className="verse-testament" title={`${verse.testament} testament`}>{verse.testament}</p>
 				<div className="verse-tags">
 					{verse.tags.map((tag) => {
-						return <div key={tag} className="tag">{tag}</div>
+						return <div key={shortid.generate()} className="tag">{tag}</div>
 					})}
 				</div>
 			</div>
