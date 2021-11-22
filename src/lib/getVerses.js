@@ -9,7 +9,7 @@ const getVerses = (version, tag, callback) => {
 	const formattedTag = tag.toLowerCase().replace(/[^\w\s]/gi, '')
 	if (formattedTag === "") return callback(null, [])
 
-	timeout(10000, fetch(`https://api.versefor.me/bible/${version}?tag=${formattedTag}`, {
+	timeout(10000, fetch(`https://api.versefor.galex.cc/bible/${version}?tag=${formattedTag}`, {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json, text/plain, */*',
